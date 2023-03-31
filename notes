@@ -1,0 +1,31 @@
+#        recorded times of using append() and insert() with 
+#        sized arrays...
+#
+#    arraySize           insert          append
+#        XS               49.8μs          69.2μs
+#         S               39.8μs          85.3μs
+#         M              125.6μs         102.2μs
+#         L                6.1ms         356.5μs
+#        XL              682.2ms           1.9ms
+#
+#   Looking at the table from top to bottom, we can see that our computers respond to each function diffently.
+#   This becomes more obvious when passing the extraLargeArray into both functions and comparing the results
+#   from the previous test (largeArray). The recorded time for the insert array jumped from 6ms to 682ms,
+#   almost 115x! while the recorded time of the append function jumped 1.5ms, about 5x.
+# 
+#   Using this data, we can assume that a lot more is happening inside the insert function than the append
+#   function, even though they perform an action that seems equal but opposite. These functions are used to
+#   insert an item into an array, the append method will add the item to the end and the insert method will
+#   add the item to the beginning, but how each item is added might be an indicator for why amout of time each
+#   method takes to differs with the same size of input.
+# 
+#   The append function is able to grab the array from memory and add the data from input, and append it right
+#   to the end of the array. Using the insert method to add an item to the beginning of the array, requires the
+#   computer to pull the array from memory, and then move ALL items of the array, and then finally add the new
+#   item to the beginning. The amount of time it take to move each item of the array to add one to the beginning
+#   might only take a miniscule amount of time, even with a large array, but this amount of time will almost
+#   always be larger than just adding the item to the end of the array.
+#
+#   I said 'almost always' before because if you look back at the table, you can see that its actually faster to
+#   insert an item at the beginning of a small array than it is to append it to the back.
+
